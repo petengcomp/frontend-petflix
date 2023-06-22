@@ -6,21 +6,48 @@ import { FilmCard } from "@/components/FilmCard"
 import { EvaluationCard } from "@/components/EvaluationCard"
 
 import exampleImg from "@/assets/exampleImg.png"
+import { useEffect, useState } from 'react'
+import { api } from '@/services/api'
 
-function Movies() {
-    let movies = []
+function Movies({likedMovies, evaluations}) {
 
-    for (let i = 0; i < 10; i++) {
-        movies.push({
-            wasWatched: true,
-            imdbId: 123,
-            cardImage: exampleImg,
-            filmViews: 7,
-            filmRating: 3.2,
-            filmLikes: 7,
-            filmDislikes: 2,
-        })
-    }
+    let [movies, setMovies] = useState([]);
+
+    // for (let i = 0; i < 10; i++) {
+    //     movies.push({
+    //         wasWatched: true,
+    //         imdbId: 123,
+    //         cardImage: exampleImg,
+    //         filmViews: 7,
+    //         filmRating: 3.2,
+    //         filmLikes: 7,
+    //         filmDislikes: 2,
+    //     })
+    // }
+    
+    useEffect(() => {
+        async function fetchMovies() {
+
+            console.log(likedMovies)
+            likedMovies.forEach(movie => {
+                setMovies(prevMovies => {
+                    return [...prevMovies, {
+                        wasWatched: movie.wasWatched,
+                        imdbId: movie.imdbId,
+                        cardImage: movie.poster,
+                        filmViews: movie.evaluations,
+                        filmRating: movie.rating,
+                        filmLikes: movie.likes,
+                        filmDislikes: movie.dislikes,
+                    }]
+                })
+
+            })
+        }
+
+        fetchMovies();
+    }, [])
+
     return (
         <div className={styles.moviesPage}>
         <Header />
@@ -84,6 +111,37 @@ function Movies() {
         <Footer />
         </div>
     )
+}
+
+export async function getServerSideProps(context) {
+    const authorization = context.req.cookies["petflix_token"]
+    let response
+
+
+    try {
+        response = await api.get("/api/user", {
+            headers: {
+                Authorization: authorization,
+            },
+            
+        })
+
+
+        return {
+            props: {
+                likedMovies: response.data.likedMovies,
+                evaluations: response.data.evaluations
+            }
+        }
+    } catch (err) {
+        return {
+            redirect: {
+                destination: "/home",
+                permanent: false,
+            },
+        }
+    }
+
 }
 
 export default Movies

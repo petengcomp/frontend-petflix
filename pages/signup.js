@@ -7,7 +7,6 @@ import { SignupForm } from '@/components/SignupForm'
 function Signup() {
     return (
         <div className={styles.signup}>
-            <Header />
             <div className={styles.main}>
                 <h2 className={styles.title}>SIGN UP</h2>
                 <SignupForm/>

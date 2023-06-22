@@ -178,9 +178,19 @@ export function FilmCard({
     }
 
     const handleClick = async () => {
-        await requestReadUser(authorization)
-        await requestGetMovie(authorization, imdbId)
-        setIsExpanded(true)
+        if (isAdmin) {
+            if (wasWatched) {
+                api.get("/api/admin/removewatched?imdbId="+ imdbId)
+                router.reload(window.location.pathname)
+            } else {
+                api.get("/api/admin/addwatched?imdbId="+ imdbId)
+                router.reload(window.location.pathname)
+            }
+        } else {            
+            await requestReadUser(authorization)
+            await requestGetMovie(authorization, imdbId)
+            setIsExpanded(true)
+        }
     }
 
     const handleClose = () => {
