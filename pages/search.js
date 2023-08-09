@@ -17,11 +17,10 @@ function Search({
   isAdmin,
   profilePic,
 }) {
+  const [page, setPage] = useState(1);
+  const [foundMovies, setFoundMovies] = useState(results);
+  const amountPages = Math.ceil(totalResults / 10);
   if (totalResults != 0) {
-    const [page, setPage] = useState(1);
-    const [foundMovies, setFoundMovies] = useState(results);
-    const amountPages = Math.ceil(totalResults / 10);
-
     const onClickHandle = async () => {
       if (page + 1 <= amountPages) {
         const [foundMovies2, totalResults2] = await requestSearchMovie(
@@ -42,7 +41,7 @@ function Search({
         <div className={styles.searchMain}>
           <div className={styles.foundFilmsContainer}>
             <section className={styles.foundFilmsText}>
-              <p>MOVIES/TV SERIES FOUND FOR "{query}"</p>
+              <p>MOVIES/TV SERIES FOUND FOR &#34;{query}&#34;</p>
               <p className={styles.qtdFoundFilmsText}>{totalResults} RESULTS</p>
             </section>
             <section className={styles.foundFilms}>
@@ -83,7 +82,7 @@ function Search({
           height={240}
         />
         <p className={styles.foundFilmsText}>
-          NO MOVIE/TV SERIES NAMED “{query}” WAS FOUND
+          NO MOVIE/TV SERIES NAMED &#34;{query}&#34; WAS FOUND
         </p>
       </div>
       <Footer />
