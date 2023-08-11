@@ -23,7 +23,7 @@ function Ranking({bestMovies, usersWithMoreEvaluations, profilePic, isAdmin, aut
 
                                 <section className={styles.rankContainerText} key={index}>
                                     <span>
-                                        <p>#{index}</p>
+                                        <p>#{index+1}</p>
                                     </span>
                                     <span>
                                         <p>{user.name}</p>
@@ -51,7 +51,7 @@ function Ranking({bestMovies, usersWithMoreEvaluations, profilePic, isAdmin, aut
 
                                 <section className={styles.rankContainerText} key={index}>
                                     <span>
-                                        <p>#{index}</p>
+                                        <p>#{index+1}</p>
                                     </span>
                                     <span>
                                         <p>{movie.title}</p>
