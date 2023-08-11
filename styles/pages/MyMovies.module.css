@@ -2,7 +2,6 @@
     background: -webkit-linear-gradient(180deg, #101010, #0A0A0A);
     min-height: 100vh;
     width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -13,7 +12,7 @@
     width: 90%;
     height: auto;
     margin: auto;
-    padding-top: 3%;
+    padding: 10vh 0;
 }
 
 .foundFilmsContainer {
@@ -47,6 +46,7 @@
 .rankByText > strong {
     color: #FFBF31;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .foundFilms {
