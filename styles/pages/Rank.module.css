@@ -17,13 +17,13 @@
 }
 
 .rankContent{
-    height: 100vh;
     display: flex;
+    min-height: 90vh;
     flex-direction: row;
     margin: 60px auto;
 }
 
-.rankConteiner{
+.rankContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,14 +33,14 @@
     width: 85%;
 }
 
-.rankConteinerText{
+.rankContainerText{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.rankConteinerText span{
+.rankContainerText span{
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -49,7 +49,7 @@
     font-weight: 700;
 }
 
-.rankConteinerContent{
+.rankContainerContent{
     display: flex;
     margin-top: 50px;
     flex-direction: column;
