@@ -76,9 +76,21 @@ export function SignupForm(){
     const handleCreateAcc = (e) => {
         e.preventDefault()
         if (user.password === confirmPassword) {
-            console.log(user)
-            console.log(confirmPassword)
+            //console.log(user)
+            //console.log(confirmPassword)
+            
             api.post("/api/user", user)
+            .then((response) => {
+                console.log(response)
+                if (response.status === 200 || response.status === 201) {
+                    window.location.href = "/login"
+                }
+            }
+            )
+            .catch((err) => {
+                console.log(err)
+            }
+            )
         }
         else {
             console.log("As senhas não batem.")
@@ -110,13 +122,23 @@ export function SignupForm(){
         <div className={styles.profileContainer}>
             PROFILE PICTURE<br></br>
             <div className={styles.profileChoice}>
-                {images.map((image, index) => index < (isExpanded ? images.length : 9) && (
+            {images.map((image, index) => {
+                const isActive = index === (user.profilePic - 1); // Checa se a imagem está ativa
+                const showImage = index < (isExpanded ? images.length : 9);
+                if (!showImage) {
+                    return null;
+                }
+                return (
                     <div className={styles.profilePicContainer} key={index}>
-                        <button className={styles.profileButton} key={index} onClick={() => handleClick(index+1)}>
-                            <Image src={image} width={202} height={202} className={styles.profilePic} alt=""/>
+                        <button
+                            className={`${styles.profileButton} ${isActive ? styles.active : ''}`} // Adiciona a classe active se a imagem estiver ativa
+                            onClick={() => handleClick(index + 1)}
+                        >
+                            <Image src={image} width={202} height={202} className={styles.profilePic} alt="" />
                         </button>
                     </div>
-                ))}
+                );
+            })}
                 <div className={styles.profilePicContainer}>
                     <button className={styles.profileButton} id={styles.expand} onClick={handle_expand}>
                         <Image src={expandIcon} className={styles.expandIcon} style={isExpanded ? {rotate: '180deg'}: {}} alt=""/>
