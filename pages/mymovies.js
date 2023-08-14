@@ -1,5 +1,6 @@
 import styles from "@/styles/pages/MyMovies.module.css";
 
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FilmCard } from "@/components/FilmCard";
@@ -16,6 +17,7 @@ function Movies({
   profilePic,
 }) {
   let movies = [];
+  const [sortType, setSortType] = useState("MOST FREQUENT");
 
   //for (let i = 0; i < 10; i++) {
   //  movies.push({
@@ -28,6 +30,21 @@ function Movies({
   //    filmDislikes: 2,
   //  });
   //}
+
+  const handleRankByMostFrequent = () => {
+    evaluationsMovies.sort((a, b) => {
+      return b.evaluations.length - a.evaluations.length;
+    }
+    );
+  };
+
+  const handleRankByHighestRating = () => {
+    console.log(evaluationsMovies)
+    evaluationsMovies.sort((a, b) => {
+      return b.rating - a.rating;
+    }
+    );
+  };
 
   return (
     <div className={styles.moviesPage}>
@@ -66,8 +83,19 @@ function Movies({
             <p className={styles.qtdFoundFilmsText}>
               {evaluationsMovies.length} EVALUATIONS
             </p>
-            <p className={styles.rankByText}>
-              RANK BY <strong>MOST FREQUENT</strong>
+            <p className={styles.rankByText} onClick={()=>{
+              if(sortType == "MOST FREQUENT"){ 
+                setSortType("highestRating")
+                handleRankByHighestRating()
+                setSortType("HIGHTEST RATING")
+              }
+              else {
+                setSortType("mostFrequent")
+                handleRankByMostFrequent()
+                setSortType("MOST FREQUENT")
+              }
+              }}>
+              RANK BY <strong>{sortType}</strong>
             </p>
           </section>
           <section className={styles.foundFilms}>
@@ -78,7 +106,7 @@ function Movies({
                   wasWatched={true}
                   cardImage={film.poster}
                   imdbId={film.imdbId}
-                  filmViews={0}
+                  filmViews={film.evaluations.length}
                   filmRating={film.rating.toFixed(2)}
                   filmLikes={film._count.likes}
                   filmDislikes={film._count.dislikes}
