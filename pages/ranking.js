@@ -46,7 +46,9 @@ function Ranking({bestMovies, usersWithMoreEvaluations, profilePic, isAdmin, aut
                     </section>
 
                     {
-                        bestMovies.map((movie, index) => {
+                        bestMovies
+                        .filter((movie, index) => movie.rating!=null)
+                        .map((movie, index) => {
                             return (
 
                                 <section className={styles.rankContainerText} key={index}>

@@ -17,7 +17,7 @@ function Movies({
   profilePic,
 }) {
   let movies = [];
-  const [sortType, setSortType] = useState("MOST FREQUENT");
+  const [sortType, setSortType] = useState("HIGHEST RATING");
 
   //for (let i = 0; i < 10; i++) {
   //  movies.push({
@@ -87,7 +87,7 @@ function Movies({
               if(sortType == "MOST FREQUENT"){ 
                 setSortType("highestRating")
                 handleRankByHighestRating()
-                setSortType("HIGHTEST RATING")
+                setSortType("HIGHEST RATING")
               }
               else {
                 setSortType("mostFrequent")
